@@ -10,7 +10,7 @@ spec:
   storageClassName: longhorn
   resources:
     requests:
-      storage: 500Mb
+      storage: 500Mi
 
 ---
 # Deployment Object
