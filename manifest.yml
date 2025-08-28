@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: portfolio
-        image: fleeforezz/portfolio:1.0.0-73beta
+        image: fleeforezz/portfolio:1.0.0-3beta
         resources:
           limits:
             cpu: "1000m"
