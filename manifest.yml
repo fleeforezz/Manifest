@@ -60,6 +60,6 @@ spec:
     app: warranty-management-fe
   type: NodePort
   ports:
-    - port: 9232
-      targetPort: 9232
+    - port: 5173
+      targetPort: 5173
       nodePort: 32524
