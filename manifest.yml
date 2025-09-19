@@ -1,0 +1,65 @@
+# Persistent Volume Claim
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: portfolio-pvc
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: longhorn
+#   resources:
+#     requests:
+#       storage: 1Gi
+
+---
+# Deployment Object
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: warranty-management-fe-deployment
+spec:
+  selector:
+    matchLabels:
+      app: warranty-management-fe
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: warranty-management-fe
+    spec:
+      containers:
+      - name: warranty-management-fe
+        image: fleeforezz/warranty-management-fe:1.1-beta
+        resources:
+          limits:
+            cpu: "1000m"
+            memory: "1000Mi"
+          requests:
+            cpu: "500m"
+            memory: "750Mi"
+        # volumeMounts:
+        # - mountPath: "/"
+        #   name: portfolio-storage
+        ports:
+        - containerPort: 8080
+      # volumes:
+      # - name: portfolio-storage
+      #   persistentVolumeClaim:
+      #     claimName: portfolio-pvc
+      automountServiceAccountToken: false
+
+---
+
+# Service Object
+apiVersion: v1
+kind: Service
+metadata:
+  name: warranty-management-fe-service
+spec:
+  selector:
+    app: warranty-management-fe
+  type: NodePort
+  ports:
+    - port: 9232
+      targetPort: 9232
+      nodePort: 32524
